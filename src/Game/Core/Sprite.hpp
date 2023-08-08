@@ -1,12 +1,14 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <glm/glm.hpp>
 
 #include "Renderer/VertexBuffer.hpp"
 #include "Renderer/VertexArray.hpp"
 #include "Renderer/Texture.hpp"
 #include "Renderer/Shader.hpp"
+#include "../include/AMSTL/Vector2.hpp"
 
 class Sprite {
 public:
@@ -22,6 +24,7 @@ public:
     float getMinX();
 
     double distanceTo(Sprite* other);
+    std::vector<amstl::vec2> getVertex();
 
     void draw();
     bool isCollision;

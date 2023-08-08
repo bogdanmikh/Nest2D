@@ -106,3 +106,13 @@ float Sprite::getMinX() {
 double Sprite::distanceTo(Sprite* other) {
     return sqrt((getMinX() - other->getMinX()) * (getMinX() - other->getMinX()) + (getMinY() - other->getMinY()) * (getMinY() - other->getMinY()));
 }
+
+std::vector<amstl::vec2> Sprite::getVertex() {
+    std::vector<amstl::vec2> vertex = {
+          {getMinX(), getMinY()}
+        , {getMaxX(), getMinY()}
+        , {getMinX(), getMaxY()}
+        , {getMaxX(), getMaxY()}
+    };
+    return vertex;
+}

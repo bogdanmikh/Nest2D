@@ -5,7 +5,7 @@
 #include "Player.hpp"
 #include "Application/Application.hpp"
 #include "Game/LevelManager/LevelManager.hpp"
-#include "Game/Core/CollisionDetector.hpp"
+#include "Game/Core/GovnoCollisionDetector.hpp"
 #include "Game/Core/Camera.hpp"
 #include "Game/LevelManager/LevelManager.hpp"
 
@@ -14,7 +14,7 @@
 Player::Player(Shader* shader, Camera* camera)
         : Sprite("../resources/textures/ball.png", shader)
           , camera(camera) {
-    physics = new Physics(1);
+    physics = new Physics(0);
     physics->setForce({5, 0});
     setPosition(0.f, 0.f, 0.f);
     setSize(1., 1.);

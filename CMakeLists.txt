@@ -18,8 +18,8 @@ add_executable(Nest2D
     src/Game/GameObject/GameObject.cpp
     src/Game/Core/Camera.hpp
     src/Game/Core/Camera.cpp
-    src/Game/Core/CollisionDetector.hpp
-    src/Game/Core/CollisionDetector.cpp
+    src/Game/Core/GovnoCollisionDetector.hpp
+    src/Game/Core/GovnoCollisionDetector.cpp
     src/Game/Core/Sprite.hpp
     src/Game/Core/Sprite.cpp
     src/Game/Levels/MenuLevel.hpp
@@ -32,6 +32,8 @@ add_executable(Nest2D
     src/Game/Scripts/Menu.cpp
     src/Game/Scripts/Square.hpp
     src/Game/Scripts/Square.cpp
+    src/Game/Scripts/Player.hpp
+    src/Game/Scripts/Player.cpp
     src/Renderer/imgui_impl/imgui_impl_glfw.h
     src/Renderer/imgui_impl/imgui_impl_glfw.cpp
     src/Renderer/imgui_impl/imgui_impl_opengl3.h
@@ -57,8 +59,12 @@ add_executable(Nest2D
     src/Window/Key.hpp
     src/Window/Window.cpp
     src/Window/Window.hpp
-        src/Game/Scripts/Player.cpp src/Game/Scripts/Player.hpp src/Physics/Physics.cpp src/Physics/Physics.hpp include/AMSTL/Vector2.hpp)
+    src/Physics/Physics.hpp
+    src/Physics/Physics.cpp
+    include/AMSTL/Vector2.hpp)
+
 target_include_directories(Nest2D PRIVATE src)
+target_include_directories(Nest2D PRIVATE include)
 
 # GLFW
 add_subdirectory(vendor/glfw)

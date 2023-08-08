@@ -1,7 +1,7 @@
 #include "Square.hpp"
 #include "Application/Application.hpp"
 #include "Game/LevelManager/LevelManager.hpp"
-#include "Game/Core/CollisionDetector.hpp"
+#include "Game/Core/GovnoCollisionDetector.hpp"
 #include "Game/Core/Camera.hpp"
 #include "Game/LevelManager/LevelManager.hpp"
 
