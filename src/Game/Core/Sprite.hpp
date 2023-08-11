@@ -1,41 +1,37 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
-#include <glm/glm.hpp>
+#include "GameObject.hpp"
 
-#include "Renderer/VertexBuffer.hpp"
-#include "Renderer/VertexArray.hpp"
-#include "Renderer/Texture.hpp"
-#include "Renderer/Shader.hpp"
-#include "../include/AMSTL/Vector2.hpp"
-
-class Sprite {
+class Sprite : public GameObject {
 public:
-    Sprite(std::string texturePath, Shader* shader);
-    ~Sprite();
-    void setPosition(float x, float y, float z);
-    void translate(float x, float y, float z);
+    Sprite(World* world, std::string texturePath, Shader* shader);
+    ~Sprite() override;
+    void setPosition(float x, float y);
+    void setPosition(glm::vec2 position);
+    void translate(float x, float y);
     void setSize(float width, float height);
 
-    float getMaxY();
     float getMinY();
+    float getMaxY();
     float getMaxX();
     float getMinX();
 
-    double distanceTo(Sprite* other);
-    std::vector<amstl::vec2> getVertex();
+    void update(double deltaTime) override {}
 
-    void draw();
-    bool isCollision;
+    double distanceTo(Sprite* other);
+
+    inline void setRigidbody(Rigidbody* rigidbody) {
+        m_rigidbody = rigidbody;
+    }
+
+    void draw() override;
 private:
     void updateModelMatrix();
-
-    Texture texture;
-    VertexBuffer* vertexBuffer;
-    VertexArray* vertexArray;
-    glm::vec3 position;
-    glm::vec2 size;
+    Texture m_texture;
+    VertexBuffer* m_vertexBuffer;
+    VertexArray* m_vertexArray;
+    glm::vec2 m_position;
+    glm::vec2 m_size;
 protected:
-    Shader* shader;
+    Shader* m_shader;
 };

@@ -3,18 +3,16 @@
 //
 #pragma once
 
-#include "../include/AMSTL/Vector2.hpp"
+#include <vector>
+#include <glm/glm.hpp>
+#include "Components/Rigidbody.hpp"
 
-class Physics {
+class Physics final {
 public:
-    Physics(double gravity);
-    double getGravity(double deltaTime) const;
-    void setGravity(double gravity);
-    amstl::vec2 getForce(double deltaTime) const;
-    void setForce(const amstl::vec2& force);
-    void updateForce(const amstl::vec2& value);
+    Physics(): m_gravity(0), objects() {}
+    Rigidbody* createObject(double mass, glm::vec2 position);
+    void update(double deltaTime);
 private:
-    amstl::vec2 m_force;
     double m_gravity;
+    std::vector<Rigidbody*> objects;
 };
-

@@ -2,5 +2,6 @@ bin
 build
 .idea
 cmake-build-debug
+out
 cmake-build-release
 .DS_Store

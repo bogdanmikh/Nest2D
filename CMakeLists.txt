@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project("Nest2D")
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 set(BIN_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
@@ -14,14 +14,15 @@ add_executable(Nest2D
     src/Game/World.cpp
     src/Game/Level.hpp
     src/Game/Direction.hpp
-    src/Game/GameObject/GameObject.hpp
-    src/Game/GameObject/GameObject.cpp
     src/Game/Core/Camera.hpp
     src/Game/Core/Camera.cpp
-    src/Game/Core/GovnoCollisionDetector.hpp
-    src/Game/Core/GovnoCollisionDetector.cpp
     src/Game/Core/Sprite.hpp
     src/Game/Core/Sprite.cpp
+    #src/Game/Core/GovnoCollisionDetector.hpp
+    #src/Game/Core/GovnoCollisionDetector.cpp
+    src/Game/Core/GameObject.hpp
+    src/Game/Core/CollisionDetector.hpp
+    src/Game/Core/CollisionDetector.cpp
     src/Game/Levels/MenuLevel.hpp
     src/Game/Levels/MenuLevel.cpp
     src/Game/LevelManager/LevelManager.hpp
@@ -30,8 +31,6 @@ add_executable(Nest2D
     src/Game/Levels/SimulationLevel.cpp
     src/Game/Scripts/Menu.hpp
     src/Game/Scripts/Menu.cpp
-    src/Game/Scripts/Square.hpp
-    src/Game/Scripts/Square.cpp
     src/Game/Scripts/Player.hpp
     src/Game/Scripts/Player.cpp
     src/Renderer/imgui_impl/imgui_impl_glfw.h
@@ -61,10 +60,11 @@ add_executable(Nest2D
     src/Window/Window.hpp
     src/Physics/Physics.hpp
     src/Physics/Physics.cpp
-    include/AMSTL/Vector2.hpp)
+    src/Physics/Components/Rigidbody.hpp
+    src/Physics/Components/Rigidbody.cpp
+)
 
 target_include_directories(Nest2D PRIVATE src)
-target_include_directories(Nest2D PRIVATE include)
 
 # GLFW
 add_subdirectory(vendor/glfw)

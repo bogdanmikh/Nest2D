@@ -7,5 +7,6 @@ MenuLevel::~MenuLevel() {
 }
 
 void MenuLevel::start(World* world, Camera* camera) {
-    world->addActor(new Menu());
+    Menu *menu = new Menu(world);
+    world->addActor(menu);
 }

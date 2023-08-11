@@ -2,8 +2,8 @@
 
 #include "Window/Window.hpp"
 #include "Game/World.hpp"
-#include "Game/Scripts/Square.hpp"
 #include "Game/Level.hpp"
+#include "Physics/Physics.hpp"
 
 class Application {
 public:
@@ -20,7 +20,7 @@ public:
 
 private:
     static Application *s_instance;
-    Camera* camera; 
+    Camera* camera;
     Level* currentLevel;
     int maximumFps = 60;
     uint64_t deltaTimeMillis = 0;

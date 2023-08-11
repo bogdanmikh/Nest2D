@@ -1,32 +1,23 @@
 //
 // Created by bogdan on 06.08.2023.
 //
+#pragma once
 
 #include "Physics.hpp"
 
-Physics::Physics(double gravity)
-    : m_force{0, 0}
-    , m_gravity(gravity) {}
-
-double Physics::getGravity(double deltaTime) const {
-    return m_gravity * deltaTime;
+void Physics::update(double deltaTime) {
+    for (auto & object : objects) {
+        object->m_position = {
+                (object->getForce().x + object->m_position.x) * deltaTime,
+                (object->getForce().y + m_gravity + object->m_position.y) * deltaTime
+        };
+    }
 }
 
-void Physics::setGravity(const double gravity) {
-    m_gravity = gravity;
+Rigidbody *Physics::createObject(double mass, glm::vec2 position) {
+    Rigidbody* object = new Rigidbody(mass);
+    object->m_position = position;
+    objects.emplace_back(object);
+    return object;
 }
-
-amstl::vec2 Physics::getForce(double deltaTime) const {
-    return {m_force.x * deltaTime, m_force.y * deltaTime};
-}
-
-void Physics::setForce(const amstl::vec2& force) {
-    m_force = force;
-}
-
-void Physics::updateForce(const amstl::vec2& value) {
-    m_force.x += value.x;
-    m_force.y += value.y;
-}
-
 

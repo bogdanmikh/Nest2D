@@ -20,7 +20,7 @@ Application* Application::getInstance() {
 }
 
 Application::Application()
-    : currentLevel(nullptr) {
+    : currentLevel(nullptr), world() {
     s_instance = this;
     std::cout << "Nest2D version BETA\n";
 
@@ -33,6 +33,7 @@ Application::Application()
     camera = new Camera;
     camera->setFieldOfView(glm::radians(60.f));
     camera->setRotation(0.f, 0.f, 0.f);
+
     ImGui_Init(window->getNativeHandle());
 
     loadLevel(createMenuLevel());
@@ -48,7 +49,7 @@ Application::~Application() {
 }
 
 void Application::loop() {
-    while (window->shouldClose() == false) {
+    while (!window->shouldClose()) {
         uint64_t lastTime = timeMillis;
         timeMillis = getMillis();
         deltaTimeMillis += timeMillis - lastTime;

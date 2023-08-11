@@ -4,12 +4,12 @@
 
 #include <glm/ext.hpp>
 
-Sprite::Sprite(std::string texturePath, Shader* shader)
-    : isCollision(false)
-    , texture(texturePath)
-    , position(0.f)
-    , shader(shader)
-    , size(1.f, 1.f) {
+Sprite::Sprite(World* world, std::string texturePath, Shader* shader)
+    : GameObject(world)
+    , m_texture(texturePath)
+    , m_position(0.f)
+    , m_shader(shader)
+    , m_size(1.f, 1.f) {
     //
     //      2________1
     //      |        |
@@ -17,7 +17,7 @@ Sprite::Sprite(std::string texturePath, Shader* shader)
     //      |________|
     //      3        4
     //
-
+    // 1 - круг, 2 - треугольник, 3 - квадрат
     // Ось объекта в точке 3
     float *data = new float[24] {
     //    x   y          u    v
@@ -40,79 +40,71 @@ Sprite::Sprite(std::string texturePath, Shader* shader)
     //     1.f, -1.f,      1.f, 1.f,   // 4
     // };
 
-    vertexBuffer = new VertexBuffer(data, sizeof(float) * 24);
+    m_vertexBuffer = new VertexBuffer(data, sizeof(float) * 24);
     delete[] data;
 
     VertexBufferLayout layout;
     layout.pushVec2F(1);
     layout.pushVec2F(1);
 
-    vertexArray = new VertexArray();
-    vertexArray->addBuffer(*vertexBuffer, layout);
+    m_vertexArray = new VertexArray();
+    m_vertexArray->addBuffer(*m_vertexBuffer, layout);
 }
 
 Sprite::~Sprite() {
-    delete vertexArray;
-    delete vertexBuffer;
+    delete m_vertexArray;
+    delete m_vertexBuffer;
 }
 
 void Sprite::draw() {
-    texture.bind();
-    vertexArray->bind();
+    m_texture.bind();
+    m_vertexArray->bind();
     updateModelMatrix();
     Renderer::drawArrays(6);
 }
 
-void Sprite::setPosition(float x, float y, float z) {
-    position.x = x;
-    position.y = y;
-    position.z = z;
+void Sprite::setPosition(float x, float y) {
+    m_position.x = x;
+    m_position.y = y;
 }
 
-void Sprite::translate(float x, float y, float z) {
-    position.x += x;
-    position.y += y;
-    position.z += z;
+void Sprite::setPosition(glm::vec2 position) {
+    m_position = position;
+}
+
+void Sprite::translate(float x, float y) {
+    m_position.x += x;
+    m_position.y += y;
 }
 
 void Sprite::setSize(float width, float height) {
-    size.x = width;
-    size.y = height;
+    m_size.x = width;
+    m_size.y = height;
 }
 
 void Sprite::updateModelMatrix() {
-    shader->use();
-    glm::mat4 model = glm::translate(glm::mat4(1.f), position);
-    model = glm::scale(model, glm::vec3(size, 1.f));
-    shader->setMat4("model", model);
+    m_shader->use();
+    glm::mat4 model = glm::translate(glm::mat4(1.f), glm::vec3(m_position, 0.f));
+    model = glm::scale(model, glm::vec3(m_size, 1.f));
+    m_shader->setMat4("model", model);
 }
 
 float Sprite::getMaxY() {
-    return position.y + size.y;
+    return m_position.y + m_size.y;
 }
 
 float Sprite::getMinY() {
-    return position.y;
+    return m_position.y;
 }
 
 float Sprite::getMaxX() {
-    return position.x + size.x;
+    return m_position.x + m_size.x;
 }
 
 float Sprite::getMinX() {
-    return position.x;
+    return m_position.x;
 }
 
 double Sprite::distanceTo(Sprite* other) {
     return sqrt((getMinX() - other->getMinX()) * (getMinX() - other->getMinX()) + (getMinY() - other->getMinY()) * (getMinY() - other->getMinY()));
-}
-
-std::vector<amstl::vec2> Sprite::getVertex() {
-    std::vector<amstl::vec2> vertex = {
-          {getMinX(), getMinY()}
-        , {getMaxX(), getMinY()}
-        , {getMinX(), getMaxY()}
-        , {getMaxX(), getMaxY()}
-    };
-    return vertex;
 }

@@ -1,8 +1,24 @@
 #include "World.hpp"
+#include "Game/Core/Sprite.hpp"
 
 void World::update(double deltaTime) {
-    for(int i = 0; i < gameObjects.size(); i++) {
-        gameObjects[i]->update(deltaTime);
+    // Обновление физики
+    m_physics.update(deltaTime);
+    // Применение изменений в физике к объектам
+    for(auto gameObject : gameObjects) {
+        if (!gameObject->isPhysicsObject()) {
+            continue;
+        }
+        auto sprite = dynamic_cast<Sprite*>(gameObject);
+        if(!sprite) {
+            continue;
+        }
+        auto rb = sprite->m_rigidbody;
+        std::cout << rb->getPosition().x << ' ' << rb->getPosition().y << '\n';
+        sprite->setPosition(rb->getPosition());
+    }
+    for (auto & gameObject : gameObjects) {
+        gameObject->update(deltaTime);
     }
 }
 
@@ -23,21 +39,4 @@ void World::deleteAll() {
         delete actor;
     }
     gameObjects.clear();
-}
-
-std::vector<GameObject*>& World::getAllActors() {
-    return gameObjects;
-}
-
-std::vector<Sprite*> World::getAllCollisions() {
-    std::vector<Sprite*> result;
- 
-    for (int i = 0; i < gameObjects.size(); i++) {
-        auto sprite = dynamic_cast<Sprite*>(gameObjects[i]);
-        if (sprite && sprite->isCollision) {
-            result.push_back(sprite);
-        }
-    }
- 
-    return result;
 }

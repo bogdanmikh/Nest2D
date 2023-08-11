@@ -4,17 +4,15 @@
 
 #pragma once
 
-#include "Game/GameObject/GameObject.hpp"
-#include "Game/Core/Sprite.hpp"
 #include "Game/Core/Camera.hpp"
-#include "Physics/Physics.hpp"
+#include "Game/Core/Sprite.hpp"
+#include "Physics/Components/Rigidbody.hpp"
 
-class Player: public GameObject, public Sprite {
+class Player final: public Sprite {
 public:
-    Player(Shader* shader, Camera* camera);
+    Player(World* world, Shader* shader, Camera* camera);
     void update(double deltaTime) override;
-    ~Player();
+    ~Player() = default;
 private:
-    Physics *physics;
     Camera *camera;
 };

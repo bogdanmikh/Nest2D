@@ -1,18 +1,24 @@
 #pragma once
 
-#include "GameObject/GameObject.hpp"
-#include "Game/Core/Sprite.hpp"
+#include "Game/Core/GameObject.hpp"
+#include "Physics/Physics.hpp"
 
 #include <vector>
 
 class World {
 public:
+    inline World() : m_physics() {}
     void update(double deltaTime);
     void addActor(GameObject* actor);
+    Rigidbody* createRigidbody(double mass, glm::vec2 pos) {
+        m_physics.createObject(mass, pos);
+    }
     void deleteActor(GameObject* actor);
     void deleteAll();
-    std::vector<GameObject*>& getAllActors();
-    std::vector<Sprite*> getAllCollisions();
+    inline Physics* getPhysics() {
+        return &m_physics;
+    }
 private:
     std::vector<GameObject*> gameObjects;
+    Physics m_physics;
 };
