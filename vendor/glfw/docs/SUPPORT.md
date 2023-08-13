@@ -1,4 +1,4 @@
-# Support resources
+# support resources
 
 See the [latest documentation](https://www.glfw.org/docs/latest/) for tutorials,
 guides and the API reference.

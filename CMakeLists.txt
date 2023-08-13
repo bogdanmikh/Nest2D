@@ -18,11 +18,7 @@ add_executable(Nest2D
     src/Game/Core/Camera.cpp
     src/Game/Core/Sprite.hpp
     src/Game/Core/Sprite.cpp
-    #src/Game/Core/GovnoCollisionDetector.hpp
-    #src/Game/Core/GovnoCollisionDetector.cpp
     src/Game/Core/GameObject.hpp
-    src/Game/Core/CollisionDetector.hpp
-    src/Game/Core/CollisionDetector.cpp
     src/Game/Levels/MenuLevel.hpp
     src/Game/Levels/MenuLevel.cpp
     src/Game/LevelManager/LevelManager.hpp
@@ -61,7 +57,10 @@ add_executable(Nest2D
     src/Physics/Physics.hpp
     src/Physics/Physics.cpp
     src/Physics/Components/Rigidbody.hpp
-    src/Physics/Components/Rigidbody.cpp
+    #src/Physics/CollisionDetector/GovnoCollisionDetector.hpp
+    #src/Physics/CollisionDetector/GovnoCollisionDetector.cpp
+    src/Physics/CollisionDetector/CollisionDetector.hpp
+    src/Physics/CollisionDetector/CollisionDetector.cpp
 )
 
 target_include_directories(Nest2D PRIVATE src)

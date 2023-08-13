@@ -16,7 +16,7 @@ Individuals: support continued development and maintenance [here](https://www.pa
 
 | [The Pitch](#the-pitch) - [Usage](#usage) - [How it works](#how-it-works) - [Releases & Changelogs](#releases--changelogs) - [Demo](#demo) - [Integration](#integration) |
 :----------------------------------------------------------: |
-| [Upcoming changes](#upcoming-changes) - [Gallery](#gallery) - [Support, FAQ](#support-frequently-asked-questions-faq) -  [How to help](#how-to-help) - [Sponsors](https://github.com/ocornut/imgui/wiki/Sponsors) - [Credits](#credits) - [License](#license) |
+| [Upcoming changes](#upcoming-changes) - [Gallery](#gallery) - [support, FAQ](#support-frequently-asked-questions-faq) -  [How to help](#how-to-help) - [Sponsors](https://github.com/ocornut/imgui/wiki/Sponsors) - [Credits](#credits) - [License](#license) |
 | [Wiki](https://github.com/ocornut/imgui/wiki) - [Languages & frameworks backends/bindings](https://github.com/ocornut/imgui/wiki/Bindings) - [Software using Dear ImGui](https://github.com/ocornut/imgui/wiki/Software-using-dear-imgui) - [User quotes](https://github.com/ocornut/imgui/wiki/Quotes) |
 
 ### The Pitch
@@ -166,7 +166,7 @@ Custom engine (untitled)
 [Tracy Profiler](https://github.com/wolfpld/tracy)
 ![tracy profiler](https://raw.githubusercontent.com/wiki/ocornut/imgui/web/v176/tracy_profiler.png)
 
-### Support, Frequently Asked Questions (FAQ)
+### support, Frequently Asked Questions (FAQ)
 
 See: [Frequently Asked Questions (FAQ)](https://github.com/ocornut/imgui/blob/master/docs/FAQ.md) where common questions are answered.
 

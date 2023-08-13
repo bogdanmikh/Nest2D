@@ -387,7 +387,7 @@ Therefore, even if an application using GLFW has MBCS mode code, there's no need
 for GLFW itself to support it.
 
 
-@subsection moving_windows Support for versions of Windows older than XP
+@subsection moving_windows support for versions of Windows older than XP
 
 All explicit support for version of Windows older than XP has been removed.
 There is no code that actively prevents GLFW 3 from running on these earlier

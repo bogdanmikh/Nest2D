@@ -173,7 +173,7 @@ ignored.
 
 @subsubsection wl_shell_34 Support for the wl_shell protocol has been removed
 
-Support for the wl_shell protocol has been removed and GLFW now only supports
+support for the wl_shell protocol has been removed and GLFW now only supports
 the XDG-Shell protocol.  If your Wayland compositor does not support XDG-Shell
 then GLFW will fail to initialize.
 

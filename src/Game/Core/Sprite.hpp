@@ -24,6 +24,10 @@ public:
         m_rigidbody = rigidbody;
     }
 
+    inline Rigidbody* getRigidbody() {
+        return m_rigidbody;
+    }
+
     void draw() override;
 private:
     void updateModelMatrix();

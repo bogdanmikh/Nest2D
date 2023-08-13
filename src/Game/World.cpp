@@ -14,7 +14,6 @@ void World::update(double deltaTime) {
             continue;
         }
         auto rb = sprite->m_rigidbody;
-        std::cout << rb->getPosition().x << ' ' << rb->getPosition().y << '\n';
         sprite->setPosition(rb->getPosition());
     }
     for (auto & gameObject : gameObjects) {

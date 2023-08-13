@@ -3633,7 +3633,7 @@ Other Changes:
   They will work inside a normal window but it will be a bit unusual.
 - Menus: Added BeginMenuBar() to append to window menu-bar (set ImGuiWindowFlags_MenuBar to enable).
 - Menus: Added BeginMainMenuBar() helper to append to a fullscreen main menu-bar.
-- Popups: Support for stacked popups. Each popup level inhibit inputs to lower levels. The menus system is based on this. (#126).
+- Popups: support for stacked popups. Each popup level inhibit inputs to lower levels. The menus system is based on this. (#126).
 - Popups: Added BeginPopupContextItem(), BeginPopupContextWindow(), BeginPopupContextVoid() to create a popup window on mouse-click.
 - Popups: Popups have borders by default (#197), attenuated border alpha in default theme.
 - Popups & Tooltip: Fit within display. Handling various positioning/sizing/scrolling edge cases. Better hysteresis when moving

@@ -3,19 +3,42 @@
 //
 #pragma once
 
+#include "CollisionDetector/CollisionDetector.hpp"
 #include "Physics.hpp"
 
 void Physics::update(double deltaTime) {
+    auto *collisionDetector = new CollisionDetector();
     for (auto & object : objects) {
-        object->m_position = {
-                (object->getForce().x + object->m_position.x) * deltaTime,
-                (object->getForce().y + m_gravity + object->m_position.y) * deltaTime
+        glm::vec2 nextPos = {
+                (object->getForce().x * deltaTime + object->m_position.x),
+                ((object->getForce().y + -m_gravity) * deltaTime + object->m_position.y)
         };
+        bool canMove = true;
+        for (auto & otherObject : objects) {
+            if (otherObject == object) continue;
+            const std::vector<glm::vec2> &polygonA = object->getVertex(nextPos);
+            const std::vector<glm::vec2> &polygonB = otherObject->getVertex();
+            if (collisionDetector->gjk(polygonA, polygonB)) {
+                canMove = false;
+                break;
+            }
+        }
+        if (canMove) {
+            object->m_position = nextPos;
+        }
     }
+    delete collisionDetector;
 }
 
-Rigidbody *Physics::createObject(double mass, glm::vec2 position) {
-    Rigidbody* object = new Rigidbody(mass);
+void Physics::dumpPolygon(const std::vector<glm::vec2> &polygonA) const {
+    for (auto s : polygonA) {
+        std::cout << '{' << s.x << ", " << s.y << '}';
+    }
+    std::cout << ";" << std::endl;
+}
+
+Rigidbody* Physics::createObject(double mass, glm::vec2 position) {
+    auto* object = new Rigidbody(mass);
     object->m_position = position;
     objects.emplace_back(object);
     return object;
