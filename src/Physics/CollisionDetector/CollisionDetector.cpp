@@ -62,16 +62,41 @@ void CollisionDetector::resolveCollisionBC(double deltaTime, double gravity, Phy
 
 }
 
+#define maxSpeed 15
+
+void support(PhysicsObject* ph) {
+    if (ph->getForce().x > ph->getCircleCollider()->getRadius() * maxSpeed) {
+        ph->setForce({ph->getCircleCollider()->getRadius() * maxSpeed, ph->getForce().y});
+    } else if (ph->getForce().x < -ph->getCircleCollider()->getRadius() * maxSpeed) {
+        ph->setForce({-ph->getCircleCollider()->getRadius() * maxSpeed, ph->getForce().y});
+    }
+    if (ph->getForce().y > ph->getCircleCollider()->getRadius() * maxSpeed) {
+        ph->setForce({ph->getForce().x, ph->getCircleCollider()->getRadius() * maxSpeed});
+    } else if (ph->getForce().y < -ph->getCircleCollider()->getRadius() * maxSpeed) {
+        ph->setForce({ph->getForce().x, -ph->getCircleCollider()->getRadius() * maxSpeed});
+    }
+}
+
+#define coefficient 1.5f
+
 bool CollisionDetector::resolveCollisionCW(double deltaTime,
                                            double gravity, PhysicsObject *ph) {
-    if (ph->getNextPos(deltaTime, gravity).x <= -5.7 + ph->getCircleCollider()->getRadius()) {
-        ph->setImpulse(-ph->getForce());
-    } else if (ph->getNextPos(deltaTime, gravity).x >= 2.5 + ph->getCircleCollider()->getRadius()) {
-        ph->setImpulse(-ph->getForce());
-    } else if (ph->getNextPos(deltaTime, gravity).y <= -3.05 + ph->getCircleCollider()->getRadius()) {
-        ph->setImpulse(-ph->getForce());
-    } else if (ph->getNextPos(deltaTime, gravity).y >= 1.2 + ph->getCircleCollider()->getRadius()) {
-        ph->setImpulse(-ph->getForce());
-    } else return false;
+    support(ph);
+    glm::vec2 pos = {0, 0};
+    bool isCome = false;
+    if (ph->getNextPos(deltaTime, gravity).x < -5.7 + ph->getCircleCollider()->getRadius() || \
+        ph->getNextPos(deltaTime, gravity).x > 2.5 + ph->getCircleCollider()->getRadius()) {
+        isCome = true;
+        pos.x = -ph->getForce().x * coefficient;
+    }
+    if (ph->getNextPos(deltaTime, gravity).y < -3.05 + ph->getCircleCollider()->getRadius() ||
+            (ph->getNextPos(deltaTime, gravity).y > 0.85 + ph->getCircleCollider()->getRadius())) {
+        isCome = true;
+        pos.y = -ph->getForce().y * coefficient;
+    }
+    if (!isCome) {
+        return false;
+    }
+    ph->setImpulse(pos);
     return true;
 }

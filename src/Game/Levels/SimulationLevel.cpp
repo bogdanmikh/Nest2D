@@ -35,7 +35,7 @@ void SimulationLevel::start(World* world, Camera* camera) {
     molecule1->setPosition(0.f, 0.f);
     molecule1->setPhysicsObject(
             world->getPhysics()->createObjectCircle
-                    (10, {molecule1->getMinX(), molecule1->getMinY()}, 0.25)
+                    (5, {molecule1->getMinX(), molecule1->getMinY()}, 0.25)
     );
     molecule1->getPhysicsObject()->setForce({-0.5, -0.8});
     world->addActor(molecule1);
@@ -47,6 +47,56 @@ void SimulationLevel::start(World* world, Camera* camera) {
             world->getPhysics()->createObjectCircle
                     (10, {molecule2->getMinX(), molecule2->getMinY()}, 0.25)
     );
-    molecule2->getPhysicsObject()->setForce({0.5, -0.8});
+    molecule2->getPhysicsObject()->setForce({1, 1});
     world->addActor(molecule2);
+
+    auto molecule3 = new Molecule(world, shader, camera);
+    molecule3->setSize(0.5f, 0.5f);
+    molecule3->setPosition(-3.f, -1.f);
+    molecule3->setPhysicsObject(
+            world->getPhysics()->createObjectCircle
+                    (100, {molecule3->getMinX(), molecule3->getMinY()}, 0.25)
+    );
+    molecule3->getPhysicsObject()->setForce({1, 1});
+    world->addActor(molecule3);
+
+    auto molecule4 = new Molecule(world, shader, camera);
+    molecule4->setSize(0.5f, 0.5f);
+    molecule4->setPosition(1.f, -2.f);
+    molecule4->setPhysicsObject(
+            world->getPhysics()->createObjectCircle
+                    (70, {molecule4->getMinX(), molecule4->getMinY()}, 0.25)
+    );
+    molecule4->getPhysicsObject()->setForce({1, 1});
+    world->addActor(molecule4);
+
+    auto molecule5 = new Molecule(world, shader, camera);
+    molecule5->setSize(0.5f, 0.5f);
+    molecule5->setPosition(1.f, 0.f);
+    molecule5->setPhysicsObject(
+            world->getPhysics()->createObjectCircle
+                    (10, {molecule5->getMinX(), molecule5->getMinY()}, 0.25)
+    );
+    molecule5->getPhysicsObject()->setForce({1, 1});
+    world->addActor(molecule5);
+
+    auto molecule6 = new Molecule(world, shader, camera);
+    molecule6->setSize(0.5f, 0.5f);
+    molecule6->setPosition(-2.f, -2.f);
+    molecule6->setPhysicsObject(
+            world->getPhysics()->createObjectCircle
+                    (150, {molecule6->getMinX(), molecule6->getMinY()}, 0.25)
+    );
+    molecule6->getPhysicsObject()->setForce({1, 1});
+    world->addActor(molecule6);
+
+    auto molecule7 = new Molecule(world, shader, camera);
+    molecule7->setSize(0.5f, 0.5f);
+    molecule7->setPosition(2.f, -2.f);
+    molecule7->setPhysicsObject(
+            world->getPhysics()->createObjectCircle
+                    (150, {molecule7->getMinX(), molecule7->getMinY()}, 0.25)
+    );
+    molecule7->getPhysicsObject()->setForce({1, 1});
+    world->addActor(molecule7);
 }

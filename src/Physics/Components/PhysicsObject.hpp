@@ -181,8 +181,8 @@ public:
 
     glm::vec2 getNextImpulsePos(double deltaTime, double gravity) const {
         glm::vec2 nextPos = {
-                (getForce().x * deltaTime + m_position.x + (m_impulse.x / getMass() * deltaTime)),
-                (getForce().y * deltaTime + m_position.y + (m_impulse.y) / getMass() * deltaTime)
+                m_position.x + (m_impulse.x / getMass() * deltaTime),
+                (m_position.y + (m_impulse.y) / getMass() * deltaTime)
         };
         return nextPos;
     }
