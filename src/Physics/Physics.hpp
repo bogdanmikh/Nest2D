@@ -6,16 +6,16 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "Components/Rigidbody.hpp"
+#include "Components/PhysicsObject.hpp"
+#include "CollisionDetector/CollisionDetector.hpp"
 
 class Physics final {
 public:
-    Physics(): m_gravity(1), objects() {}
-    Rigidbody* createObject(double mass, glm::vec2 position);
+    Physics(): m_gravity(0), objects() {}
+    PhysicsObject* createObjectCircle(double mass, glm::vec2 position, double radius);
+    PhysicsObject* createObjectBox(double mass, glm::vec2 position, glm::vec2 size);
     void update(double deltaTime);
 private:
     double m_gravity;
-    std::vector<Rigidbody*> objects;
-
-    void dumpPolygon(const std::vector<glm::vec2> &polygonA) const;
+    std::vector<PhysicsObject*> objects;
 };

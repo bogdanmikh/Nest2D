@@ -3,44 +3,46 @@
 //
 #pragma once
 
-#include "CollisionDetector/CollisionDetector.hpp"
+#include <iostream>
 #include "Physics.hpp"
 
 void Physics::update(double deltaTime) {
-    auto *collisionDetector = new CollisionDetector();
     for (auto & object : objects) {
-        glm::vec2 nextPos = {
-                (object->getForce().x * deltaTime + object->m_position.x),
-                ((object->getForce().y + -m_gravity) * deltaTime + object->m_position.y)
-        };
-        bool canMove = true;
+        if (object->m_canMove) {
+            object->m_position = object->getNextPos(deltaTime, m_gravity);
+        } else {
+            object->m_position = object->getNextImpulsePos(deltaTime, m_gravity);
+            object->m_force = object->m_impulse;
+            object->m_impulse = {0, 0};
+        }
+        object->m_canMove = true;
+        if (CollisionDetector::resolveCollisionCW(deltaTime, m_gravity, object)) {
+            object->m_canMove = false;
+            continue;
+        }
         for (auto & otherObject : objects) {
-            if (otherObject == object) continue;
-            const std::vector<glm::vec2> &polygonA = object->getVertex(nextPos);
-            const std::vector<glm::vec2> &polygonB = otherObject->getVertex();
-            if (collisionDetector->gjk(polygonA, polygonB)) {
-                canMove = false;
+            if (otherObject == object || otherObject->isTrigger()) continue;
+            if (!CollisionDetector::canMoveCC(deltaTime, m_gravity, object, otherObject)) {
+                object->m_canMove = false;
+                CollisionDetector::resolveCollisionCC(deltaTime, m_gravity, object, otherObject);
                 break;
             }
         }
-        if (canMove) {
-            object->m_position = nextPos;
-        }
     }
-    delete collisionDetector;
 }
 
-void Physics::dumpPolygon(const std::vector<glm::vec2> &polygonA) const {
-    for (auto s : polygonA) {
-        std::cout << '{' << s.x << ", " << s.y << '}';
-    }
-    std::cout << ";" << std::endl;
-}
-
-Rigidbody* Physics::createObject(double mass, glm::vec2 position) {
-    auto* object = new Rigidbody(mass);
+PhysicsObject* Physics::createObjectCircle(double mass, glm::vec2 position, double radius) {
+    auto* object = new PhysicsObject(mass);
+    object->createCircle(radius);
     object->m_position = position;
     objects.emplace_back(object);
     return object;
 }
 
+PhysicsObject* Physics::createObjectBox(double mass, glm::vec2 position, glm::vec2 size) {
+    auto* object = new PhysicsObject(mass);
+    object->createBox(size);
+    object->m_position = position;
+    objects.emplace_back(object);
+    return object;
+}

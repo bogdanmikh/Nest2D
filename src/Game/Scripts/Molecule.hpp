@@ -6,13 +6,13 @@
 
 #include "Game/Core/Camera.hpp"
 #include "Game/Core/Sprite.hpp"
-#include "Physics/Components/Rigidbody.hpp"
+#include "Physics/Components/PhysicsObject.hpp"
 
-class Player final: public Sprite {
+class Molecule final: public Sprite {
 public:
-    Player(World* world, Shader* shader, Camera* camera);
+    Molecule(World* world, Shader* shader, Camera* camera);
     void update(double deltaTime) override;
-    ~Player() = default;
+    ~Molecule() = default;
 private:
     Camera *camera;
 };

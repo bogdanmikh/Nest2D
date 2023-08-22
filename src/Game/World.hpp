@@ -10,8 +10,11 @@ public:
     inline World() : m_physics() {}
     void update(double deltaTime);
     void addActor(GameObject* actor);
-    Rigidbody* createRigidbody(double mass, glm::vec2 pos) {
-        return m_physics.createObject(mass, pos);
+    PhysicsObject* createPhysicsObjectBox(double mass, glm::vec2& pos, glm::vec2& size) {
+        return m_physics.createObjectBox(mass, pos, size);
+    }
+    PhysicsObject* createPhysicsObjectCircle(double mass, glm::vec2& pos, double radius) {
+        return m_physics.createObjectCircle(mass, pos, radius);
     }
     void deleteActor(GameObject* actor);
     void deleteAll();

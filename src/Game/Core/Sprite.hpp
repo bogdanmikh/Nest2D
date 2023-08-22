@@ -20,12 +20,12 @@ public:
 
     double distanceTo(Sprite* other);
 
-    inline void setRigidbody(Rigidbody* rigidbody) {
-        m_rigidbody = rigidbody;
+    inline void setPhysicsObject(PhysicsObject* physicsObject) {
+        m_physicsObject = physicsObject;
     }
 
-    inline Rigidbody* getRigidbody() {
-        return m_rigidbody;
+    inline PhysicsObject* getPhysicsObject() {
+        return m_physicsObject;
     }
 
     void draw() override;

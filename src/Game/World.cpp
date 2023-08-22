@@ -13,8 +13,8 @@ void World::update(double deltaTime) {
         if(!sprite) {
             continue;
         }
-        auto rb = sprite->m_rigidbody;
-        sprite->setPosition(rb->getPosition());
+        auto ph = sprite->m_physicsObject;
+        sprite->setPosition(ph->getPosition());
     }
     for (auto & gameObject : gameObjects) {
         gameObject->update(deltaTime);

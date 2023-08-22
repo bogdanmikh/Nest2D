@@ -27,8 +27,8 @@ add_executable(Nest2D
     src/Game/Levels/SimulationLevel.cpp
     src/Game/Scripts/Menu.hpp
     src/Game/Scripts/Menu.cpp
-    src/Game/Scripts/Player.hpp
-    src/Game/Scripts/Player.cpp
+        src/Game/Scripts/Molecule.hpp
+        src/Game/Scripts/Molecule.cpp
     src/Renderer/imgui_impl/imgui_impl_glfw.h
     src/Renderer/imgui_impl/imgui_impl_glfw.cpp
     src/Renderer/imgui_impl/imgui_impl_opengl3.h
@@ -56,12 +56,9 @@ add_executable(Nest2D
     src/Window/Window.hpp
     src/Physics/Physics.hpp
     src/Physics/Physics.cpp
-    src/Physics/Components/Rigidbody.hpp
-    #src/Physics/CollisionDetector/GovnoCollisionDetector.hpp
-    #src/Physics/CollisionDetector/GovnoCollisionDetector.cpp
+    src/Physics/Components/PhysicsObject.hpp
     src/Physics/CollisionDetector/CollisionDetector.hpp
-    src/Physics/CollisionDetector/CollisionDetector.cpp
-)
+    src/Physics/CollisionDetector/CollisionDetector.cpp src/Game/Scripts/Border.cpp src/Game/Scripts/Border.hpp)
 
 target_include_directories(Nest2D PRIVATE src)
 

@@ -1,15 +1,31 @@
 //
-// Created by bogdan on 09.08.2023.
+// Created by bogdan on 19.08.2023.
 //
+#pragma once
 
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <glm/glm.hpp>
+#include "Physics/Components/PhysicsObject.hpp"
 
 class CollisionDetector {
-private:
-    glm::vec2 support(const std::vector<glm::vec2>& polygon, const glm::vec2& direction);
 public:
-    bool gjk(const std::vector<glm::vec2>& polygonA, const std::vector<glm::vec2>& polygonB);
+    static bool
+    canMoveCC(double deltaTime, double gravity, const PhysicsObject *ph1, const PhysicsObject *ph2);
+
+    static bool
+    canMoveBB(double deltaTime, double gravity, const PhysicsObject *ph1, const PhysicsObject *ph2);
+
+    static bool
+    canMoveBC(double deltaTime, double gravity, const PhysicsObject *ph1, const PhysicsObject *ph2);
+
+    static void resolveCollisionCC(double deltaTime, double gravity,
+                                   PhysicsObject *ph1, PhysicsObject *ph2);
+
+    static void resolveCollisionBB(double deltaTime, double gravity, PhysicsObject *ph1,
+                                   PhysicsObject *ph2);
+
+    static void resolveCollisionBC(double deltaTime, double gravity, PhysicsObject *ph1,
+                                   PhysicsObject *ph2);
+
+    static bool resolveCollisionCW(double deltaTime, double gravity, PhysicsObject *ph1);
+
+    static glm::vec2 resolveCollisionBW(double deltaTime, double gravity, PhysicsObject *ph1);
 };
